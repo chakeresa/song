@@ -1,5 +1,36 @@
+require './lib/verse'
+require './lib/gift'
+
 class Song
+  DATA = [
+    ["mockingbird", "won't sing"],
+    ["diamond ring", "turns to brass"],
+    ["looking glass", "gets broke"],
+    ["billy goat", "won't pull"],
+    ["cart and bull", "turn over"],
+    ["dog named Rover", "won't bark"],
+    ["horse and cart", "fall down"]
+  ]
+
+  def initialize(data = DATA)
+    @gifts = data.map do |gift_data|
+      Gift.new(gift_data[0], gift_data[1])
+    end
+  end
+
   def lyrics
-    "Hush little baby, don't say a word,\nPapa's gonna buy you a mockingbird.\n\nAnd if that mockingbird won't sing,\nPapa's gonna buy you a diamond ring.\n\nAnd if that diamond ring turns to brass,\nPapa's gonna buy you a looking glass.\n\nAnd if that looking glass gets broke,\nPapa's gonna buy you a billy goat.\n\nAnd if that billy goat won't pull,\nPapa's gonna buy you a cart and bull.\n\nAnd if that cart and bull turn over,\nPapa's gonna buy you a dog named Rover.\n\nAnd if that dog named Rover won't bark,\nPapa's gonna buy you a horse and cart.\n\nAnd if that horse and cart fall down,\nYou'll still be the sweetest little baby in town!"
+    return_string = first_line
+    @gifts.each do |gift|
+      return_string += Verse.new(gift).lyrics
+    end
+    return_string += last_line
+  end
+
+  def first_line
+    "Hush little baby, don't say a word,\n"
+  end
+
+  def last_line
+    "You'll still be the sweetest little baby in town!"
   end
 end
